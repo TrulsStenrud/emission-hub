@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/new-website-test/",
   build: {
-    copyPublicDir: true,
+    copyPublicDir: false,
   },
   server: {
     port: 3000,

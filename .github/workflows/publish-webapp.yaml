@@ -19,6 +19,8 @@ jobs:
               run: npm ci
             - name: Build application
               run: npm run build
+            - name: Copty index to 404
+              run: cp ./dist/index.html ./dist/404.html
             - name: Update GitHub pages
               uses: peaceiris/actions-gh-pages@v3
               with:
