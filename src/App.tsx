@@ -3,28 +3,34 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import "./App.css";
 import {
+  BrowserRouter,
   createBrowserRouter,
+  Outlet,
+  Route,
   RouterProvider,
+  Routes,
   useNavigate,
 } from "react-router-dom";
 
 function App() {
   return (
-    <RouterProvider
-      router={createBrowserRouter(
-        [
-          { path: "/", element: <PageOne /> },
-          { path: "/pageOne", element: <PageOne /> },
-          { path: "/pageTwo", element: <PageTwo /> },
-        ],
-        { basename: "/new-website-test" }
-      )}
-    />
+    <BrowserRouter basename="/new-website-test">
+      <Routes>
+        <Route path="/" element={<PageOne />} />
+        <Route path="/pageOne" element={<PageOne />} />
+        <Route path="/pageTwo" element={<PageTwo />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
+const TestNavigationMenu: React.FC = () => {
+  return <Outlet />;
+};
+
 const PageOne: React.FC = () => {
   const [count, setCount] = useState(0);
+
   const navigate = useNavigate();
   return (
     <div className="App">
@@ -59,7 +65,12 @@ const PageTwo: React.FC = () => {
   return (
     <div className="App">
       <div>
-        <h2>Side 2</h2>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://reactjs.org" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
       <h1>Vite + React</h1>
       <div className="card">
