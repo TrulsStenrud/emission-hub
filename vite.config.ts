@@ -5,9 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/new-website-test/",
-  build: {
-    assetsDir: ".",
-  },
   server: {
     port: 3000,
   },
