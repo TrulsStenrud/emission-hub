@@ -10,5 +10,5 @@ npm ci
 Run the development server:
 
 ```bash
-npm start dev
+npm run dev
 ```
