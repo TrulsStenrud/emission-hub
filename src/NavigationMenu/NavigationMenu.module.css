@@ -1,0 +1,23 @@
+.navBar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: .3em 0;
+}
+
+.navLinks{
+  display: flex;
+  gap: 1em;  
+  width: fit-content;
+  margin: auto;
+}
+
+.navLink{
+  border-radius: .3em;
+  padding: 5px;
+}
+
+.navLink.selected{
+  background-color: lightblue;
+}

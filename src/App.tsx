@@ -1,32 +1,29 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import "./App.css";
 import {
   BrowserRouter,
-  createBrowserRouter,
-  Outlet,
+  Navigate,
   Route,
-  RouterProvider,
   Routes,
   useNavigate,
 } from "react-router-dom";
+import "./App.css";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "./assets/vite.svg";
+import NavigationMenu from "./NavigationMenu/NavigationMenu";
 
 function App() {
   return (
     <BrowserRouter basename="/new-website-test">
       <Routes>
-        <Route path="/" element={<PageOne />} />
-        <Route path="/pageOne" element={<PageOne />} />
-        <Route path="/pageTwo" element={<PageTwo />} />
+        <Route path="/" element={<NavigationMenu />}>
+          <Route path="/" element={<Navigate to="/pageOne" />} />
+          <Route path="pageOne" element={<PageOne />} />
+          <Route path="pageTwo" element={<PageTwo />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
-
-const TestNavigationMenu: React.FC = () => {
-  return <Outlet />;
-};
 
 const PageOne: React.FC = () => {
   const [count, setCount] = useState(0);

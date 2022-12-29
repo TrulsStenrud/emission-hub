@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     checker({
-      typescript: false, // vite has this included not
+      typescript: false, // vite has this included now
       // eslint: { lintCommand: "eslint ." }, this is where we would run eslint, if or when we configure it
       overlay: { initialIsOpen: false },
     }),
