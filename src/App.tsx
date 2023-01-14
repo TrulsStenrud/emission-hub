@@ -10,7 +10,7 @@ import EmissionBarChart from "./components/EmissionBarChart";
 
 function App() {
     return (
-        <BrowserRouter basename="/emission-hub">
+        <BrowserRouter basename="/new-website-test">
             <Routes>
                 <Route path="/">
                     <Route path="/" element={<Navigate to="/europris"/>}/>
