@@ -10,14 +10,14 @@ import EmissionBarChart from "./components/EmissionBarChart";
 
 function App() {
     return (
-        <BrowserRouter basename="/new-website-test">
+        <BrowserRouter basename="/emission-hub">
             <Routes>
                 <Route path="/">
                     <Route path="/" element={<Navigate to="/europris"/>}/>
                     <Route path="europris" element={<PageOne/>}/>
                 </Route>
+                <Route path="*" element={<NoPathFound />}></Route>
             </Routes>
-            <Route path="*" element={<NoPathFound />}></Route>
         </BrowserRouter>
     );
 }
