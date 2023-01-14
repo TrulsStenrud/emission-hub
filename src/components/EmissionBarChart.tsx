@@ -1,17 +1,17 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 import {
     BarChart,
     Bar,
     XAxis,
     YAxis,
     CartesianGrid,
-    Tooltip,
-    Legend,
     Cell
 } from "recharts";
 import {scaleOrdinal} from "d3-scale";
 // @ts-ignore
 import {schemeCategory10} from "d3-scale-chromatic";
+import {emissionData} from "../resources/ToLazyToDoFileLoad";
+import {CSVtoArray, TOTALS_HEADER_INDEX, TOTALS_INDEX} from "../resources/csvUtils";
 
 const getPath = (x: number, y: number, width: number, height: number) => {
     return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${
@@ -30,77 +30,98 @@ const TriangleBar: FunctionComponent<any> = (props: any) => {
 
     return <path d={getPath(x, y, width, height)} stroke="none" fill={fill}/>;
 };
-const data = [
-    {
-        name: "District Heating",
-        first: 15.1,
-        second: 3.6,
-        third: 4.2
-    },
-    {
-        name: "Transport total",
-        first: 210.6,
-        second: 163.3,
-        third: 152.1
-    },
-    {
-        name: "Buisness Travle",
-        first: 262.9,
-        second: 101.6,
-        third: 95.7
-    },
-    {
-        name: "Wast",
-        first: 1203.9,
-        second: 889.8,
-        third: 1106.6
-    }
-];
 
-export default function EmissionBarChart() {
+type GraphDataType = {
+    name: string;
+    value: number,
+};
+
+type EmissionDataProps = {
+    compIndex: number
+};
+
+export default function EmissionBarChart({compIndex}: EmissionDataProps) {
+    const [graphLbData, setGraphLbData] = useState<GraphDataType[]>([])
+    const [graphMbData, setGraphMbData] = useState<GraphDataType[]>([])
+
+    const headers =  useRef<string[]>(
+        CSVtoArray(emissionData.split("\n")[TOTALS_HEADER_INDEX])
+            .slice(TOTALS_INDEX, TOTALS_INDEX + 6)
+    ).current
+
+    useEffect(() => {
+        if (compIndex == -1) {
+            return
+        }
+
+        const data: number[] = CSVtoArray(emissionData.split("\n")[compIndex])
+            .slice(TOTALS_INDEX, TOTALS_INDEX + headers.length)
+            .map(v => {
+                v = v.replace(",", ".")
+                if (!!v && /[0-9]/.test(v))
+                    return +v
+                return 0
+            })
+        setGraphLbData([
+            {name: headers[0], value: data[0]},
+            {name: headers[2], value: data[2]},
+            {name: headers[4], value: data[4]},
+        ])
+
+        setGraphMbData([
+            {name: headers[1], value: data[1]},
+            {name: headers[3], value: data[3]},
+            {name: headers[5], value: data[5]}
+        ])
+    }, [compIndex, setGraphLbData, setGraphMbData])
+
     return (
         <>
             <BarChart
+                className={"emChart"}
+                title={"Totals: lb"}
                 width={500}
                 height={300}
-                data={data}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3"/>
-                <XAxis dataKey="name"/>
-                <YAxis/>
-                <Tooltip/>
-                <Legend/>
-                <Bar dataKey="first" fill="#82ca9d"/>
-                <Bar dataKey="second" fill="#8884d8"/>
-                <Bar dataKey="third" fill="#82ca9d"/>
-            </BarChart>
-            <BarChart
-                width={500}
-                height={300}
-                data={data}
+                data={graphLbData}
                 margin={{
                     top: 20,
-                    right: 30,
-                    left: 20,
-                    bottom: 5
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis dataKey="name"/>
                 <YAxis/>
                 <Bar
-                    dataKey="first"
+                    dataKey="value"
                     fill="#8884d8"
                     shape={<TriangleBar/>}
                     label={{position: "top"}}
                 >
-                    {data.map((entry, index) => (
+                    {graphLbData.map((entry, index) => (
+                        // @ts-ignore
+                        <Cell key={`cell-${index}`} fill={colors[index % 20]}/>
+                    ))}
+                </Bar>
+            </BarChart>
+            <BarChart
+                title={"Totals: mb"}
+                className={"emChart"}
+                width={500}
+                height={300}
+                data={graphMbData}
+                margin={{
+                    top: 20
+                }}
+            >
+                <CartesianGrid strokeDasharray="3 3"/>
+                <XAxis dataKey="name"/>
+                <YAxis/>
+                <Bar
+                    dataKey="value"
+                    fill="#8884d8"
+                    shape={<TriangleBar/>}
+                    label={{position: "top"}}
+                >
+                    {graphMbData.map((entry, index) => (
                         // @ts-ignore
                         <Cell key={`cell-${index}`} fill={colors[index % 20]}/>
                     ))}
