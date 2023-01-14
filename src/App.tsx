@@ -14,8 +14,8 @@ function App() {
         <BrowserRouter basename="/new-website-test">
             <Routes>
                 <Route path="/">
-                    <Route path="/" element={<Navigate to="/europris"/>}/>
-                    <Route path="europris" element={<PageOne/>}/>
+                    <Route path="/" element={<Navigate to="/totals"/>}/>
+                    <Route path="totals" element={<PageOne/>}/>
                 </Route>
                 <Route path="*" element={<NoPathFound/>}></Route>
             </Routes>
