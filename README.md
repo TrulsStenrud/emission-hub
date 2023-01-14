@@ -3,12 +3,12 @@
 Install dependencies:
 
 ```bash
-npm ci
+bun install
 # or use `npm install` if changing dependencies
 ```
 
 Run the development server:
 
 ```bash
-npm run dev
+bun run start
 ```
