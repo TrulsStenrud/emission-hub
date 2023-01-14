@@ -15,9 +15,9 @@ jobs:
             - name: Setup bun
               run: curl -fsSL https://bun.sh/install | bash
             - name: Install dependencies
-              run: bun install
+              run: ~/.bun/bin/bun install
             - name: Build application
-              run: bun run build
+              run: ~/.bun/bin/bun run build
             - name: Create 404.html
               run: cp ./build/index.html ./build/404.html
             - name: Update GitHub pages
