@@ -17,8 +17,12 @@ function App() {
                     <Route path="europris" element={<PageOne/>}/>
                 </Route>
             </Routes>
+            <Route path="*" element={<NoPathFound />}></Route>
         </BrowserRouter>
     );
+}
+const NoPathFound : React.FC = () => {
+    return<div>404 GONE</div>
 }
 
 const PageOne: React.FC = () => {
