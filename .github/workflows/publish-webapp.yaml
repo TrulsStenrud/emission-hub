@@ -16,6 +16,8 @@ jobs:
                 cache: true
             - name: Setup bun
               uses: antongolub/action-setup-bun@v1
+            - name: Install dependencies
+              run: bun install
             - name: Build application
               run: bun run build
             - name: Create 404.html
