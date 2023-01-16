@@ -34,7 +34,6 @@ export type CompInfoType = {
 
 const PageOne: React.FC = () => {
     const [comp, setCompIndex] = useState<CompInfoType>({name: "", csvIndex: -1})
-    console.log(comp)
     return (
         <div className="App">
             <h1>{comp.name} emission highlights</h1>

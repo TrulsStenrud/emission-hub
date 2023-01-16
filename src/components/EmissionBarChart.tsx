@@ -80,7 +80,7 @@ export default function EmissionBarChart({compIndex}: EmissionDataProps) {
             <BarChart
                 className={"emChart"}
                 title={"Totals: lb"}
-                width={500}
+                width={800}
                 height={300}
                 data={graphLbData}
                 margin={{
@@ -105,7 +105,7 @@ export default function EmissionBarChart({compIndex}: EmissionDataProps) {
             <BarChart
                 title={"Totals: mb"}
                 className={"emChart"}
-                width={500}
+                width={800}
                 height={300}
                 data={graphMbData}
                 margin={{
