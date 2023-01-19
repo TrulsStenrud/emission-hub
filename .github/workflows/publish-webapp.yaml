@@ -9,13 +9,15 @@ jobs:
     update-gh-pages:
         name: Deploy to GitHub pages
         runs-on: ubuntu-latest
+        defaults:
+          run:
+            shell: bash
         steps:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Setup bun
               run: |
                 curl -fsSL https://bun.sh/install | bash
-                export bun=~/.bun/bin/bun
             - name: Install dependencies
               run: bun install
             - name: Build application
