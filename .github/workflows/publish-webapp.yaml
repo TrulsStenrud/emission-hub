@@ -15,8 +15,7 @@ jobs:
             - name: Setup bun
               run: |
                 curl -fsSL https://bun.sh/install | bash
-                echo "~/.bun/bin/bun" >> $GITHUB_PATH
-                echo $GITHUB_PATH
+                echo "~/.bun/bin/bun" >> $GITHUB_ENV
             - name: Install dependencies
               run: bun install
             - name: Build application
