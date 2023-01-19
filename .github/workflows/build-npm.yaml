@@ -1,4 +1,4 @@
-name: Deploy to github pages
+name: npm comp
 on:
   workflow_dispatch:
   push:
