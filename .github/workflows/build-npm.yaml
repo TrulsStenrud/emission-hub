@@ -1,9 +1,6 @@
 name: npm comp
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   comp-npm:
