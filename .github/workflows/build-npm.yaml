@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  update-gh-pages:
+  comp-npm:
     name: npm comp
     runs-on: ubuntu-latest
     steps:
