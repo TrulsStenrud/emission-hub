@@ -36,7 +36,7 @@ const PageOne: React.FC = () => {
     const [comp, setCompIndex] = useState<CompInfoType>({name: "", csvIndex: -1})
     return (
         <div className="App">
-            <h1>{comp.name} emission highlights</h1>
+            <h1>Emission highlights</h1>
             <CompanyDropDown setEmissionDataIndex={setCompIndex}/>
             <EmissionBarChart compIndex={comp.csvIndex}/>
         </div>

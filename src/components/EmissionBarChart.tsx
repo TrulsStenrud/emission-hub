@@ -12,6 +12,7 @@ import {scaleOrdinal} from "d3-scale";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {emissionData} from "../resources/ToLazyToDoFileLoad";
 import {CSVtoArray, TOTALS_HEADER_INDEX, TOTALS_INDEX} from "../resources/csvUtils";
+import {Box} from "@mui/material";
 
 const getPath = (x: number, y: number, width: number, height: number) => {
     return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${
@@ -40,11 +41,28 @@ type EmissionDataProps = {
     compIndex: number
 };
 
+function getResponsiveGraphWidth() {
+    const {innerWidth: width} = window;
+
+    return Math.max(width*0.8, 200);
+}
+
 export default function EmissionBarChart({compIndex}: EmissionDataProps) {
     const [graphLbData, setGraphLbData] = useState<GraphDataType[]>([])
     const [graphMbData, setGraphMbData] = useState<GraphDataType[]>([])
 
-    const headers =  useRef<string[]>(
+    const [graphWidth, setWindowDimensions] = useState(getResponsiveGraphWidth());
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getResponsiveGraphWidth());
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const headers = useRef<string[]>(
         CSVtoArray(emissionData.split("\n")[TOTALS_HEADER_INDEX])
             .slice(TOTALS_INDEX, TOTALS_INDEX + 6)
     ).current
@@ -76,11 +94,11 @@ export default function EmissionBarChart({compIndex}: EmissionDataProps) {
     }, [compIndex, setGraphLbData, setGraphMbData])
 
     return (
-        <>
+        <Box>
             <BarChart
                 className={"emChart"}
                 title={"Totals: lb"}
-                width={800}
+                width={graphWidth}
                 height={300}
                 data={graphLbData}
                 margin={{
@@ -105,7 +123,7 @@ export default function EmissionBarChart({compIndex}: EmissionDataProps) {
             <BarChart
                 title={"Totals: mb"}
                 className={"emChart"}
-                width={800}
+                width={graphWidth}
                 height={300}
                 data={graphMbData}
                 margin={{
@@ -127,6 +145,6 @@ export default function EmissionBarChart({compIndex}: EmissionDataProps) {
                     ))}
                 </Bar>
             </BarChart>
-        </>
+        </Box>
     );
 }

@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from "react";
 import {emissionData} from "../resources/ToLazyToDoFileLoad";
 import {LAST_INDEX_WITH_OK_DATA, VALUES_START_INDEX} from "../resources/csvUtils";
 import {CompInfoType} from "../App";
+import {FormControl, InputLabel, MenuItem, NativeSelect, Select, SelectChangeEvent} from "@mui/material";
 
 
 type CompanyDropProps = {
@@ -25,22 +26,26 @@ export default function CompanyDropDown({setEmissionDataIndex}: CompanyDropProps
         }, []
     )
 
+    const onChange = (v: any) => {
+        const i = +v.target.value
+        const csvIndex = i + VALUES_START_INDEX
+        const name = companies[i]
+
+        setEmissionDataIndex({csvIndex, name})
+    }
+
     return (
-        <select name="companyD"
-                disabled={companies.length == 0}
-                defaultValue="Choose a company"
-                onChange={v => {
-                    const i = +v.target.value
-                    const csvIndex = i + VALUES_START_INDEX
-                    const name = companies[i]
-                    console.log(csvIndex)
-                    console.log(name)
-                    setEmissionDataIndex({csvIndex, name})
-                }}>
-            {companies.map((company, key) =>
-                <CompInfoOption key={key} value={key} name={company}/>
-            )}
-        </select>
+        <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Company</InputLabel>
+            <NativeSelect
+                defaultValue={0}
+                variant="filled"
+                onChange={onChange}>
+                {companies.map((company, key) =>
+                    <CompInfoOption key={key} value={key} name={company}/>
+                )}
+            </NativeSelect>
+        </FormControl>
     );
 }
 
