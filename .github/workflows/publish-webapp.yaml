@@ -13,7 +13,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Setup bun fast
-              uses: stianStensli/set-up-bun-fast@v0.0.3
+              uses: stianStensli/set-up-bun-fast@v0.0.4
             - name: Install dependencies
               run: bun install
             - name: Build application
