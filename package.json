@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite --open",
-    "prestart": "bun i",
+    "prestart": "bun install",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

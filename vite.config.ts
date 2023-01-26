@@ -12,7 +12,7 @@ export default defineConfig({
       overlay: { initialIsOpen: false },
     }),
   ],
-  base: "/new-website-test/",
+  base: "/emission-hub/",
   build: {
     copyPublicDir: false,
     outDir: "build",

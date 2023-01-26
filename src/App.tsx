@@ -11,7 +11,7 @@ import CompanyDropDown from "./components/CompanyDropDown";
 
 function App() {
     return (
-        <BrowserRouter basename="/new-website-test">
+        <BrowserRouter basename="/emission-hub">
             <Routes>
                 <Route path="/">
                     <Route path="/" element={<Navigate to="/totals"/>}/>
