@@ -9,6 +9,7 @@ import "./App.css";
 import EmissionBarChart from "./components/EmissionBarChart";
 import CompanyDropDown from "./components/CompanyDropDown";
 
+
 function App() {
     return (
         <BrowserRouter basename="/emission-hub">
