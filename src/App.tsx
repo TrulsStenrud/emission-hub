@@ -5,14 +5,17 @@ import EmissionBarChart from './components/EmissionBarChart';
 import CompanyDropDown from './components/CompanyDropDown';
 import NavBar from './components/Navbar';
 
+export const URL_TOTALS = '/totals';
+export const URL_TABLES = '/tables';
+
 function App() {
   return (
     <BrowserRouter basename={'/emission-hub'}>
       <Routes>
         <Route path={'/'} element={<NavBar />}>
-          <Route path={'/'} element={<Navigate to={'/totals'} />} />
-          <Route path={'totals'} element={<PageOne />} />
-          <Route path={'test'} element={<h1>testing</h1>} />
+          <Route path={'/'} element={<Navigate to={URL_TOTALS} />} />
+          <Route path={URL_TOTALS} element={<PageOne />} />
+          <Route path={URL_TABLES} element={<h1>testing</h1>} />
         </Route>
         <Route path={'*'} element={<NoPathFound />}></Route>
       </Routes>
