@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
-import { emissionData } from "../resources/ToLazyToDoFileLoad";
-import {
-  LAST_INDEX_WITH_OK_DATA,
-  VALUES_START_INDEX,
-} from "../resources/csvUtils";
-import { FormControl, InputLabel, NativeSelect } from "@mui/material";
-import { useSetRecoilState } from "recoil";
-import { compIndexAtom } from "../recoils/Atoms";
+import React, { useEffect } from 'react';
+import { emissionData } from '../resources/ToLazyToDoFileLoad';
+import { LAST_INDEX_WITH_OK_DATA, VALUES_START_INDEX } from '../resources/csvUtils';
+import { FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { useSetRecoilState } from 'recoil';
+import { compIndexAtom } from '../recoils/Atoms';
 
 const companies = emissionData
-  .split("\n")
+  .split('\n')
   .slice(VALUES_START_INDEX, LAST_INDEX_WITH_OK_DATA)
-  .map((line) => line.split(",")[0]);
+  .map((line) => line.split(',')[0]);
 
 export default function CompanyDropDown() {
   const setEmissionData = useSetRecoilState(compIndexAtom);
@@ -29,8 +26,8 @@ export default function CompanyDropDown() {
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Company</InputLabel>
-      <NativeSelect defaultValue={0} variant="filled" onChange={onChange}>
+      <InputLabel id={'demo-simple-select-label'}>Company</InputLabel>
+      <NativeSelect defaultValue={0} variant={'filled'} onChange={onChange}>
         {companies.map((company, key) => (
           <CompInfoOption key={key} value={key} name={company} />
         ))}

@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const compIndexAtom = atom<number>({
-  key: "CompInfoAtom",
+  key: 'CompInfoAtom',
   default: -1,
 });

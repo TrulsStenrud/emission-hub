@@ -16,6 +16,8 @@ jobs:
               uses: stianStensli/set-up-bun-fast@v1.0.1
             - name: Install dependencies
               run: bun install
+            - name: Check linting
+              run: bun run lint
             - name: Build application
               run: bun run build
             - name: Create 404.html
