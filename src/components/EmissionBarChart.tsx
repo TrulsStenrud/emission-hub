@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {
     BarChart,
     Bar,
@@ -13,6 +13,11 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {emissionData} from "../resources/ToLazyToDoFileLoad";
 import {CSVtoArray, TOTALS_HEADER_INDEX, TOTALS_INDEX} from "../resources/csvUtils";
 import {Box} from "@mui/material";
+import {useRecoilValue} from "recoil";
+import {compIndexAtom} from "../recoils/Atoms";
+
+const headers = CSVtoArray(emissionData.split("\n")[TOTALS_HEADER_INDEX])
+        .slice(TOTALS_INDEX, TOTALS_INDEX + 6)
 
 const getPath = (x: number, y: number, width: number, height: number) => {
     return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${
@@ -37,21 +42,18 @@ type GraphDataType = {
     value: number,
 };
 
-type EmissionDataProps = {
-    compIndex: number
-};
-
 function getResponsiveGraphWidth() {
     const {innerWidth: width} = window;
 
     return Math.max(width*0.8, 200);
 }
 
-export default function EmissionBarChart({compIndex}: EmissionDataProps) {
+export default function EmissionBarChart() {
     const [graphLbData, setGraphLbData] = useState<GraphDataType[]>([])
     const [graphMbData, setGraphMbData] = useState<GraphDataType[]>([])
+    const [graphWidth, setWindowDimensions] = useState(getResponsiveGraphWidth())
 
-    const [graphWidth, setWindowDimensions] = useState(getResponsiveGraphWidth());
+    const compIndex = useRecoilValue(compIndexAtom)
 
     useEffect(() => {
         function handleResize() {
@@ -61,11 +63,6 @@ export default function EmissionBarChart({compIndex}: EmissionDataProps) {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    const headers = useRef<string[]>(
-        CSVtoArray(emissionData.split("\n")[TOTALS_HEADER_INDEX])
-            .slice(TOTALS_INDEX, TOTALS_INDEX + 6)
-    ).current
 
     useEffect(() => {
         if (compIndex == -1) {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     BrowserRouter,
     Navigate,
@@ -28,18 +28,12 @@ const NoPathFound: React.FC = () => {
     return <div>404 GONE</div>
 }
 
-export type CompInfoType = {
-    name: string
-    csvIndex: number
-}
-
 const PageOne: React.FC = () => {
-    const [comp, setCompIndex] = useState<CompInfoType>({name: "", csvIndex: -1})
     return (
         <div className="App">
             <h1>Emission highlights</h1>
-            <CompanyDropDown setEmissionDataIndex={setCompIndex}/>
-            <EmissionBarChart compIndex={comp.csvIndex}/>
+            <CompanyDropDown />
+            <EmissionBarChart />
         </div>
     );
 };

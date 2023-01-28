@@ -1,37 +1,29 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect} from "react";
 import {emissionData} from "../resources/ToLazyToDoFileLoad";
 import {LAST_INDEX_WITH_OK_DATA, VALUES_START_INDEX} from "../resources/csvUtils";
-import {CompInfoType} from "../App";
-import {FormControl, InputLabel, MenuItem, NativeSelect, Select, SelectChangeEvent} from "@mui/material";
+import {FormControl, InputLabel, NativeSelect} from "@mui/material";
+import {useSetRecoilState} from "recoil";
+import {compIndexAtom} from "../recoils/Atoms";
 
+const companies = emissionData
+    .split("\n")
+    .slice(VALUES_START_INDEX, LAST_INDEX_WITH_OK_DATA)
+    .map(line => line.split(",")[0])
 
-type CompanyDropProps = {
-    setEmissionDataIndex: React.Dispatch<React.SetStateAction<CompInfoType>>;
-};
-
-export default function CompanyDropDown({setEmissionDataIndex}: CompanyDropProps) {
-    const companies = useRef<string[]>(
-        emissionData
-            .split("\n")
-            .slice(VALUES_START_INDEX, LAST_INDEX_WITH_OK_DATA)
-            .map(line => line.split(",")[0])
-    ).current;
+export default function CompanyDropDown() {
+    const setEmissionData = useSetRecoilState(compIndexAtom);
 
     useEffect(() => {
-            if (companies.length == 0) {
+            if (companies.length == 0)
                 return
-            }
-            const firstComp = companies[0]
-            setEmissionDataIndex({name: firstComp, csvIndex: VALUES_START_INDEX})
+            setEmissionData(VALUES_START_INDEX)
         }, []
     )
 
     const onChange = (v: any) => {
         const i = +v.target.value
         const csvIndex = i + VALUES_START_INDEX
-        const name = companies[i]
-
-        setEmissionDataIndex({csvIndex, name})
+        setEmissionData(csvIndex)
     }
 
     return (
