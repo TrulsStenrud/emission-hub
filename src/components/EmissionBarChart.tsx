@@ -1,12 +1,17 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell } from 'recharts';
+import { Box } from '@mui/material';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
-import { emissionData } from '../resources/ToLazyToDoFileLoad';
-import { CSVtoArray, TOTALS_HEADER_INDEX, TOTALS_INDEX } from '../resources/csvUtils';
-import { Box } from '@mui/material';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from 'recharts';
 import { useRecoilValue } from 'recoil';
-import { compIndexAtom } from '../recoils/Atoms';
+import { compSelectorIndexAtom } from '../recoils/Atoms';
+import {
+  CSVtoArray,
+  TOTALS_HEADER_INDEX,
+  TOTALS_INDEX,
+  VALUES_START_INDEX,
+} from '../resources/csvUtils';
+import { emissionData } from '../resources/ToLazyToDoFileLoad';
 
 const headers = CSVtoArray(emissionData.split('\n')[TOTALS_HEADER_INDEX]).slice(
   TOTALS_INDEX,
@@ -45,7 +50,7 @@ export default function EmissionBarChart() {
   const [graphMbData, setGraphMbData] = useState<GraphDataType[]>([]);
   const [graphWidth, setWindowDimensions] = useState(getResponsiveGraphWidth());
 
-  const compIndex = useRecoilValue(compIndexAtom);
+  const compIndex = useRecoilValue(compSelectorIndexAtom) + VALUES_START_INDEX;
 
   useEffect(() => {
     function handleResize() {

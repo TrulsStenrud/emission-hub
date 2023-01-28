@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { emissionData } from '../resources/ToLazyToDoFileLoad';
-import { LAST_INDEX_WITH_OK_DATA, VALUES_START_INDEX } from '../resources/csvUtils';
 import { FormControl, InputLabel, NativeSelect } from '@mui/material';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { compIndexAtom, compSelectorIndexAtom } from '../recoils/Atoms';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { compSelectorIndexAtom } from '../recoils/Atoms';
+import { LAST_INDEX_WITH_OK_DATA, VALUES_START_INDEX } from '../resources/csvUtils';
+import { emissionData } from '../resources/ToLazyToDoFileLoad';
 
 const companies = emissionData
   .split('\n')
@@ -11,18 +11,16 @@ const companies = emissionData
   .map((line) => line.split(',')[0]);
 
 export default function CompanyDropDown() {
-  const setEmissionData = useSetRecoilState(compIndexAtom);
   const [selected, setSelected] = useRecoilState(compSelectorIndexAtom);
 
   useEffect(() => {
-    if (companies.length == 0) return;
-    setEmissionData(VALUES_START_INDEX);
+    const currentValue = selected;
+    setSelected(-1); // hack to trigger persistance
+    setSelected(currentValue);
   }, []);
 
   const onChange = (v: any) => {
     const i = +v.target.value;
-    const csvIndex = i + VALUES_START_INDEX;
-    setEmissionData(csvIndex);
     setSelected(i);
   };
 
