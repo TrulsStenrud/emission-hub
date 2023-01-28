@@ -4,6 +4,7 @@ import './App.css';
 import EmissionBarChart from './components/EmissionBarChart';
 import CompanyDropDown from './components/CompanyDropDown';
 import NavBar from './components/Navbar';
+import OverviewTable from './components/OverviewTable';
 
 export const URL_TOTALS = '/totals';
 export const URL_TABLES = '/tables';
@@ -15,7 +16,7 @@ function App() {
         <Route path={'/'} element={<NavBar />}>
           <Route path={'/'} element={<Navigate to={URL_TOTALS} />} />
           <Route path={URL_TOTALS} element={<PageOne />} />
-          <Route path={URL_TABLES} element={<h1>testing</h1>} />
+          <Route path={URL_TABLES} element={<OverviewTable />} />
         </Route>
         <Route path={'*'} element={<NoPathFound />}></Route>
       </Routes>

@@ -10,11 +10,11 @@ const NavBar: React.FC = () => {
     <>
       <nav className={'w-full my-3 '}>
         <div className={'flex gap-5 w-fit m-auto'}>
-          <NavLink className={(it) => linkClassNames(it.isActive)} to={URL_TOTALS}>
-            Page one
-          </NavLink>
           <NavLink className={(it) => linkClassNames(it.isActive)} to={URL_TABLES}>
-            Page one
+            Emission Overview
+          </NavLink>
+          <NavLink className={(it) => linkClassNames(it.isActive)} to={URL_TOTALS}>
+            Emission Highlights
           </NavLink>
         </div>
       </nav>
