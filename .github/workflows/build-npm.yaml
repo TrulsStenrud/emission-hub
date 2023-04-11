@@ -1,4 +1,4 @@
-name: npm comp
+name: 🚀 npm comp
 on:
   workflow_dispatch:
 
