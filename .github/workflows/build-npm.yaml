@@ -4,7 +4,7 @@ on:
 
 jobs:
   comp-npm:
-    name: npm comp
+    name: 🚀 npm comp
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

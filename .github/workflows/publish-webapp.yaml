@@ -7,7 +7,7 @@ on:
 
 jobs:
     update-gh-pages:
-        name: Deploy to GitHub pages
+        name: 🎉 Deploy to GitHub pages 🎉
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
